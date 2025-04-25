@@ -38,39 +38,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     logger.d("Logger is working in homepage build!");
 
-    return Scaffold(
-      appBar: AppBar(
-
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset(
-            'assets/icons/amd.svg',
-            semanticsLabel: 'Dart Logo'
-            ),
-            const Text('Pulsaste esta cantidad de veces el boton:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return Center(
+      child: Card(
+        
+        child: 
+        
+             Content(counter: _counter),
+         
         ),
-      ),
-      persistentFooterButtons: counterOptions,
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.account_box),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      */
-    );
+      );
+    
   }
 
   List<Widget> get counterOptions {
@@ -79,5 +56,33 @@ class _MyHomePageState extends State<MyHomePage> {
       TextButton(onPressed: _decrementCounter, child: const Icon(Icons.remove)),
       TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore))
     ];
+  }
+}
+
+class Content extends StatelessWidget {
+  const Content({
+    super.key,
+    required int counter,
+  }) : _counter = counter;
+
+  final int _counter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SvgPicture.asset(
+        'assets/icons/amd.svg',
+        semanticsLabel: 'Dart Logo'
+        ),
+        const Text('Pulsaste esta cantidad de veces el boton:'),
+        Text(
+          '$_counter',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ],
+    );
   }
 }
