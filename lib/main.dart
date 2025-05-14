@@ -29,3 +29,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
+ class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Second Route')),
+      body: Center(
+        child: ElevatedButton(
+          // Within the SecondRoute widget
+        onPressed: () {
+          Navigator.pop(context);
+        },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdRoute extends StatelessWidget {
+  const ThirdRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Third Route')),
+      body: Center(
+        child: ElevatedButton(
+          // Within the ThirdRoute widget
+        onPressed: () {
+          Navigator.pop(context);
+        },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
