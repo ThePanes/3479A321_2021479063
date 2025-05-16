@@ -1,8 +1,9 @@
 
+import 'package:aplication_laboratorio/pages/ramos.dart';
+import 'package:aplication_laboratorio/pages/start_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
-import 'package:aplication_laboratorio/main.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -44,12 +45,12 @@ Widget build(BuildContext context) {
               SvgPicture.asset(
                 'assets/icons/amd.svg',
                 semanticsLabel: 'Dart Logo'
-                ),
-                const Text('Pulsaste esta cantidad de veces el boton:'),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
+              ),
+              const Text('Pulsaste esta cantidad de veces el boton:'),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
               OverflowBar(
                 alignment: MainAxisAlignment.center,
                 children: counterOptions,
@@ -82,7 +83,7 @@ Widget build(BuildContext context) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SecondRoute()),
+            MaterialPageRoute(builder: (context) => const StartPage()),
           );
         },
         child: const Icon(Icons.open_in_new), // o const Text('Abrir ventana')
@@ -91,7 +92,7 @@ Widget build(BuildContext context) {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ThirdRoute()),
+            MaterialPageRoute(builder: (context) => const Ramos()),
           );
         },
         child: const Icon(Icons.open_in_new), // o const Text('Abrir ventana')
