@@ -120,13 +120,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   List<Widget> get CounterOptions {
     return [
       TextButton(onPressed: _incrementCounter, child: const Icon(Icons.add)),
       TextButton(onPressed: _decrementCounter, child: const Icon(Icons.remove)),
-<<<<<<< Updated upstream
-      TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore))
-=======
       TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore)),
       TextButton(
         onPressed: () {
@@ -147,7 +145,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.open_in_new), // o const Text('Abrir ventana')
       ),
 
->>>>>>> Stashed changes
     ];
   }
 }

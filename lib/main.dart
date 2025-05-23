@@ -38,15 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 26, 128, 142)),
         fontFamily: 'PixelRetro'
       ),
-<<<<<<< Updated upstream
-      home: const MyHomePage(title: 'laboratorio tres inicio'),
-    );
-  }
-}
-
-=======
       home: const MyHomePage(title: 'laboratorio seis inicio'),
     );
   }
 }
->>>>>>> Stashed changes
