@@ -1,4 +1,6 @@
 
+import 'package:aplication_laboratorio/pages/about.dart';
+import 'package:aplication_laboratorio/pages/listcontent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
@@ -122,7 +124,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       TextButton(onPressed: _incrementCounter, child: const Icon(Icons.add)),
       TextButton(onPressed: _decrementCounter, child: const Icon(Icons.remove)),
+<<<<<<< Updated upstream
       TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore))
+=======
+      TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore)),
+      TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ListContent()),
+          );
+        },
+        child: const Icon(Icons.open_in_new), // o const Text('Abrir ventana')
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const About()),
+          );
+        },
+        child: const Icon(Icons.open_in_new), // o const Text('Abrir ventana')
+      ),
+
+>>>>>>> Stashed changes
     ];
   }
 }

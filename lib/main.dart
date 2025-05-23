@@ -1,6 +1,5 @@
 import 'package:aplication_laboratorio/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
 
 void main() {
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
     logger.d("Logger is working!");
 
     return MaterialApp(
-      title: 'laboratorio tres',
+      title: 'laboratorio seis',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -39,8 +38,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 26, 128, 142)),
         fontFamily: 'PixelRetro'
       ),
+<<<<<<< Updated upstream
       home: const MyHomePage(title: 'laboratorio tres inicio'),
     );
   }
 }
 
+=======
+      home: const MyHomePage(title: 'laboratorio seis inicio'),
+    );
+  }
+}
+>>>>>>> Stashed changes
