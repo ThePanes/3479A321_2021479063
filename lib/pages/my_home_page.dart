@@ -1,9 +1,11 @@
 
 import 'package:aplication_laboratorio/pages/about.dart';
 import 'package:aplication_laboratorio/pages/listcontent.dart';
+import 'package:aplication_laboratorio/pages/preferencia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -26,12 +28,25 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter--;
     });
   } 
-    void _restartCounter() {
-    setState(() {
+void _restartCounter() async {
+  final prefs = await SharedPreferences.getInstance();
+  bool isResetEnabled = prefs.getBool('isResetEnabled') ?? false;
 
+  if (isResetEnabled) {
+    setState(() {
       _counter = 0;
     });
+  } else {
+    // Puedes mostrar un mensaje al usuario
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Reiniciar contador no esta permitido.'),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => const About()),
                 );
               break;
+            case 3:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Preferencia()),
+                );
+              break;
           }
         });
       },
@@ -66,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
         [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.home), label: 'ListContent'),
-          NavigationDestination(icon: Icon(Icons.home), label: 'About')
+          NavigationDestination(icon: Icon(Icons.home), label: 'About'),
+          NavigationDestination(icon: Icon(Icons.home), label: 'Preferencia'),
         ]
       ),
       appBar: AppBar(
@@ -85,6 +107,11 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: CounterOptions,
             ),
           ],
         ),
