@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,12 +19,38 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _isResetEnabled = false;
+  String imagenURL = 'https://picsum.photos/id/0/250/250';
+
   Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _isResetEnabled = prefs.getBool('isResetEnabled') ?? false;
     });
   }
+  Future<void> _obtenerNuevaImage() async {
+     final id = _counter % 1000;
+     final newImageUrl = 'https://picsum.photos/id/$id/250/250';
+    setState(() {
+      imagenURL = newImageUrl;
+    });
+    try {
+    final response = await http.get(Uri.parse(newImageUrl));
+    if (response.statusCode == 200) {
+    setState(() {
+    imagenURL = newImageUrl;
+    });
+    } else {
+    setState(() {
+    imagenURL = ''; // Clear the image URL
+    });
+    }
+    } catch (e) {
+    setState(() {
+    imagenURL = ''; // Clear the image URL
+    });
+    }
+
+}
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -122,7 +150,26 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: CounterOptions,
+              children: CounterOptions + [
+                TextButton(
+                  onPressed: _obtenerNuevaImage,
+                  child: const Icon(Icons.image),
+                ),
+              ],
+            ),
+            Image.network(
+              imagenURL.isNotEmpty ? imagenURL : '',
+              width: 250,
+              height: 250,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Text(
+                    'Failed to load image',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              },
             ),
           ],
         ),
