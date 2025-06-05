@@ -44,25 +44,21 @@ class _PreferenciaState extends State<Preferencia> {
           Row(
             children: [
               ElevatedButton(
-                // Within the Preferencia widget
               onPressed: () {
                 Navigator.pop(context);
               },
                 child: const Text('Go back!'),
               ),
               ElevatedButton(
-                // Within the Preferencia widget
-              onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Preferencia()),
-              ).then((_) {
-                _loadPreferences(); // Esto recarga el valor al volver
-              });
-
-              },
-                child: const Text('Permitir reinicio contador'),
+                onPressed: () {
+                  setState(() {
+                    _isResetEnabled = !_isResetEnabled; 
+                  });
+                  _savePreferences();
+                },
+                child: Text(_isResetEnabled ? 'Desactivar reinicio contador': 'Permitir reinicio contador'),
               ),
+
             ],
           ),
       ),

@@ -16,7 +16,13 @@ class MyHomePage extends StatefulWidget {
 }
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  bool _isResetEnabled = false;
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isResetEnabled = prefs.getBool('isResetEnabled') ?? false;
+    });
+  }
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -28,25 +34,28 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter--;
     });
   } 
-void _restartCounter() async {
-  final prefs = await SharedPreferences.getInstance();
-  bool isResetEnabled = prefs.getBool('isResetEnabled') ?? false;
+  void _restartCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isResetEnabled = prefs.getBool('isResetEnabled') ?? false;
 
-  if (isResetEnabled) {
-    setState(() {
-      _counter = 0;
-    });
-  } else {
-    // Puedes mostrar un mensaje al usuario
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Reiniciar contador no esta permitido.'),
-        duration: Duration(seconds: 2),
-      ),
-    );
+    if (isResetEnabled) {
+      setState(() {
+        _counter = 0;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Reiniciar contador no esta permitido.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
-}
-
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences(); 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +87,9 @@ void _restartCounter() async {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Preferencia()),
-                );
+                ).then((_) {
+                  _loadPreferences();
+                });
               break;
           }
         });
@@ -124,7 +135,10 @@ void _restartCounter() async {
     return [
       TextButton(onPressed: _incrementCounter, child: const Icon(Icons.add)),
       TextButton(onPressed: _decrementCounter, child: const Icon(Icons.remove)),
-      TextButton(onPressed: _restartCounter, child: const Icon(Icons.restore)),
+      TextButton(
+        onPressed: _isResetEnabled ? _restartCounter : null,
+        child: const Icon(Icons.restore),
+      ),
     ];
   }
 }
