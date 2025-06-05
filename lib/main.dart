@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 26, 128, 142)),
         fontFamily: 'PixelRetro'
       ),
-      home: const MyHomePage(title: 'laboratorio seis inicio'),
+      home: const MyHomePage(title: 'laboratorio ocho'),
     );
   }
 }
